@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Komuntale Elizabeth — Full‑Stack Developer</title>
+  <meta name="description" content="Komuntale Elizabeth — Full‑Stack Developer (React, Node.js, Django). Portfolio: projects, services, contact." />
+  <meta name="keywords" content="Full Stack, React, Node.js, Django, React Native, PostgreSQL, Uganda, portfolio" />
+  <meta name="author" content="Komuntale Elizabeth" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Komuntale Elizabeth — Full‑Stack Developer" />
+  <meta property="og:description" content="Portfolio showcasing web & mobile apps, services and contact information." />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon (simple SVG data URI) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234f46e5'/%3E%3Ctext x='50' y='57' font-size='48' text-anchor='middle' font-family='Arial' fill='white'%3EE%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root{
+      --accent:#4f46e5;
+      --accent-strong:#4338ca;
+      --bg:#fafbfc;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.9);
+      --max-width:1200px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:#111827;line-height:1.6;overflow-x:hidden}
+
+    /* NAV */
+    .skip-link{position:absolute;left:-999px;top:auto;overflow:hidden;height:1px}
+    .skip-link:focus{left:1rem;top:1rem;height:auto;padding:.5rem .75rem;background:#111827;color:#fff;border-radius:6px}
+
+    nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;background:var(--glass);backdrop-filter:blur(6px);position:sticky;top:0;z-index:30;box-shadow:0 1px 6px rgba(2,6,23,.06)}
+    .container{max-width:var(--max-width);margin:0 auto;width:100%}
+    .logo{font-weight:800;color:var(--accent);font-size:1.25rem}
+    .nav-links{display:flex;gap:1.5rem;align-items:center}
+    .nav-links a{color:#374151;text-decoration:none;font-weight:600}
+    .cta{padding:.5rem .9rem;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-weight:700}
+
+    /* HERO */
+    .hero{display:flex;gap:2.5rem;align-items:center;padding:4rem 5%;max-width:var(--max-width);margin:1.5rem auto;background:linear-gradient(180deg,#fff 0%,#fbfdff 100%);border-radius:16px}
+    .hero-left{flex:1;min-width:260px}
+    .greeting{color:var(--accent);font-weight:600;margin-bottom:.5rem}
+    h1{font-size:2.6rem;line-height:1.05;margin-bottom:.25rem}
+    h2{font-size:1.35rem;color:var(--muted);font-weight:600;margin-bottom:1rem}
+    .hero p{color:#4b5563;max-width:56ch;margin-bottom:1rem}
+    .hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+    .btn{display:inline-block;padding:.75rem 1.25rem;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700}
+    .btn-outline{padding:.75rem 1.25rem;border-radius:10px;border:2px solid var(--accent);background:#fff;color:var(--accent);text-decoration:none}
+    .hero-right{width:320px;display:flex;justify-content:center}
+    .profile{width:100%;max-width:320px;border-radius:14px;overflow:hidden;box-shadow:0 25px 50px rgba(79,70,229,.15)}
+    .profile img{width:100%;height:auto;display:block}
+
+    /* Services */
+    .section{padding:4rem 5%;max-width:var(--max-width);margin:0 auto}
+    h2.section-title{text-align:center;margin-bottom:1.25rem;font-size:1.9rem}
+    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem}
+    .service{background:var(--card);padding:1.5rem;border-radius:12px;border:1px solid #eef2ff;box-shadow:0 6px 24px rgba(79,70,229,.06);text-align:center}
+    .service i{font-size:1.5rem;color:var(--accent);margin-bottom:.6rem}
+
+    /* Skills */
+    .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem}
+    .skill{background:linear-gradient(180deg,var(--accent),var(--accent-strong));padding:1.25rem;border-radius:12px;color:#fff;text-align:center}
+    .skill small{display:block;opacity:.9}
+
+    /* Projects */
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem}
+    .card{background:var(--card);border-radius:12px;overflow:hidden;border:1px solid #e6eefc;box-shadow:0 10px 30px rgba(15,23,42,.05)}
+    .card .card-media{height:200px;background:#f3f4f6;display:flex;align-items:center;justify-content:center}
+    .card .card-body{padding:1rem}
+    .tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
+    .tag{background:#eef2ff;padding:.35rem .6rem;border-radius:8px;font-weight:600;color:var(--accent)}
+
+    /* Testimonials */
+    .testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+    .testimonial{padding:1rem;background:#fff;border-left:4px solid var(--accent);border-radius:10px}
+
+    /* Contact */
+    .contact-wrap{background:linear-gradient(180deg,#fff,#fbfdff);padding:2rem;border-radius:12px;border:1px solid #eef2ff;text-align:center}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:center}
+    .contact-grid .info{padding:1rem}
+    form{display:flex;flex-direction:column;gap:.6rem}
+    input,textarea{padding:.9rem;border-radius:10px;border:1px solid #e6eefc}
+    button[type=submit]{padding:.9rem;border-radius:10px;background:var(--accent);color:#fff;border:none;font-weight:700}
+
+    /* Footer */
+    footer{margin-top:2rem;padding:2.5rem 5%;text-align:center;color:#9ca3af}
+
+    /* Responsive */
+    @media (max-width:900px){.hero{flex-direction:column;padding:2rem;border-radius:12px}.hero-right{width:90%}.contact-grid{grid-template-columns:1fr}}
+  </style>
+
+  <script>
+    // Small JS for interactivity: contact form (mailto fallback) + smooth mobile nav
+    document.addEventListener('DOMContentLoaded',function(){
+      // contact form handler
+      const form = document.querySelector('#contact-form');
+      if(form){
+        form.addEventListener('submit',function(e){
+          e.preventDefault();
+          const name = form.querySelector('[name=name]').value.trim();
+          const email = form.querySelector('[name=email]').value.trim();
+          const message = form.querySelector('[name=message]').value.trim();
+          if(!name||!email||!message){
+            alert('Please fill all fields.');
+            return;
+          }
+          // try to submit using Formspree if user adds endpoint, else fallback to mailto
+          const formspreeEndpoint = form.dataset.endpoint || '';
+          if(formspreeEndpoint){
+            fetch(formspreeEndpoint, {method:'POST',body:new FormData(form)}).then(r=>{
+              if(r.ok) alert('Message sent — thank you!'); else alert('Could not send message.');
+            }).catch(()=>alert('Could not send message.'));
+          } else {
+            const subject = encodeURIComponent('Portfolio message from '+name);
+            const body = encodeURIComponent(message + '\n\nFrom: ' + name + ' <' + email + '>');
+            window.location = 'mailto:komuntaleliz152@gmail.com?subject='+subject+'&body='+body;
+          }
+        });
+      }
+
+      // mobile nav toggle (if added later)
+      const navToggle = document.querySelector('.nav-toggle');
+      if(navToggle){navToggle.addEventListener('click',()=>document.querySelector('.nav-links').classList.toggle('open'))}
+    });
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:1rem">
+      <div class="logo">Elizabeth</div>
+      <div class="nav-links" role="navigation" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact" class="cta">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section id="home" class="hero container" aria-label="Intro">
+      <div class="hero-left">
+        <p class="greeting">Hi, my name is</p>
+        <h1>Komuntale Elizabeth</h1>
+        <h2>I build accessible, maintainable web & mobile apps.</h2>
+        <p>I’m a Full‑Stack Developer (React, Node.js, Django) focused on building scalable products for agriculture and small businesses. I love clean code, good UX, and shipping quickly.</p>
+
+        <div class="hero-actions">
+          <a class="btn" href="#projects">View my work</a>
+          <a class="btn-outline" href="#contact">Hire me</a>
+          <a class="btn-outline" href="Elizabeth_Resume.pdf" download style="border-color:#111827;color:#111827">Download CV</a>
+        </div>
+
+      </div>
+
+      <div class="hero-right">
+        <div class="profile" aria-hidden="true">
+          <img src="liz.jpg" alt="Elizabeth Komuntale smiling" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section" aria-label="About">
+      <h2 class="section-title">About Me</h2>
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:1.5rem;align-items:start">
+
+        <div>
+          <p>I’m a passionate Full‑Stack Developer from Kampala, Uganda. I build digital solutions that help smallholders, local businesses, and NGOs improve operations and reach more customers. I work across the stack and care deeply about performance, accessibility, and developer experience.</p>
+
+          <p style="margin-top:1rem"><strong>Experience highlights:</strong></p>
+          <ul style="margin-top:.5rem;margin-left:1.1rem;color:#374151;line-height:1.5">
+            <li>Built Rugyeyo Farm Management app (React Native + Django)</li>
+            <li>Delivered KGL Business Manager (Node.js + MongoDB)</li>
+            <li>Open source contributor & community mentor</li>
+          </ul>
+
+          <div style="margin-top:1.25rem;padding:1rem;border-radius:10px;background:#f8fafc;border-left:4px solid var(--accent)">
+            <div><strong>Location:</strong> Kampala, Uganda</div>
+            <div><strong>Education:</strong> Certificate in Software Engineering</div>
+            <div><strong>Interests:</strong> Open source, UI/UX, Agritech</div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:1rem">
+          <div style="background:#fff;padding:1rem;border-radius:10px;border:1px solid #eef2ff;text-align:center">
+            <div style="font-weight:800;font-size:2rem;color:var(--accent)">3+</div>
+            <small style="color:#374151">Years Experience</small>
+          </div>
+
+          <div style="background:#fff;padding:1rem;border-radius:10px;border:1px solid #eef2ff">
+            <strong>Contact</strong>
+            <div style="margin-top:.5rem">📧 <a href="mailto:komuntaleliz152@gmail.com">komuntaleliz152@gmail.com</a></div>
+            <div>📱 <a href="tel:+256761375079">+256 761 375 079</a></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section" aria-label="Services">
+      <h2 class="section-title">Services</h2>
+      <div class="services">
+        <div class="service">
+          <i class="fas fa-laptop-code"></i>
+          <h3>Web Applications</h3>
+          <p>Frontends (React/Vite), accessible UI and performant apps.</p>
+        </div>
+        <div class="service">
+          <i class="fas fa-mobile-alt"></i>
+          <h3>Mobile Apps</h3>
+          <p>React Native apps for Android & iOS with offline support.</p>
+        </div>
+        <div class="service">
+          <i class="fas fa-server"></i>
+          <h3>APIs & Backend</h3>
+          <p>Node.js/Express or Django backends, databases and deployment.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section" aria-label="Skills">
+      <h2 class="section-title">Skills & Technologies</h2>
+      <div class="skills-grid">
+        <div class="skill"><strong>JavaScript</strong><small>ES6+, async, tooling</small></div>
+        <div class="skill"><strong>React</strong><small>Hooks, state, testing</small></div>
+        <div class="skill"><strong>Node.js</strong><small>APIs & servers</small></div>
+        <div class="skill"><strong>PostgreSQL</strong><small>Relational DBs</small></div>
+        <div class="skill"><strong>MongoDB</strong><small>NoSQL</small></div>
+        <div class="skill"><strong>HTML & CSS</strong><small>Responsive & accessible</small></div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section" aria-label="Projects">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="projects-grid">
+
+        <article class="card" aria-labelledby="p1">
+          <div class="card-media"><img src="Rugyeyo.jpg" alt="Rugyeyo app screenshot" style="width:100%;height:100%;object-fit:cover" loading="lazy"></div>
+          <div class="card-body">
+            <h3 id="p1">Rugyeyo Farm Management App</h3>
+            <p>Mobile app to manage crops, inventory and sales for smallholders — React Native frontend with Django backend.</p>
+            <div class="tags"><span class="tag">React Native</span><span class="tag">Django</span><span class="tag">PostgreSQL</span></div>
+            <div style="margin-top:.75rem"><a class="btn" href="#">Live demo</a> <a class="btn-outline" href="#">View code</a></div>
+          </div>
+        </article>
+
+        <article class="card" aria-labelledby="p2">
+          <div class="card-media"><img src="karibu.jpg" alt="KGL Business Manager screenshot" style="width:100%;height:100%;object-fit:cover" loading="lazy"></div>
+          <div class="card-body">
+            <h3 id="p2">KGL Business Manager</h3>
+            <p>Records automation and reporting platform for SMEs — Node.js + MongoDB backend and React frontend.</p>
+            <div class="tags"><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">React</span></div>
+            <div style="margin-top:.75rem"><a class="btn" href="#">Live demo</a> <a class="btn-outline" href="#">View code</a></div>
+          </div>
+        </article>
+
+        <article class="card" aria-labelledby="p3">
+          <div class="card-media" style="display:flex;align-items:center;justify-content:center">Project Screenshot</div>
+          <div class="card-body">
+            <h3 id="p3">Rugyeyo Website</h3>
+            <p>React + Vite site that showcases farm products and knowledge resources for farmers.</p>
+            <div class="tags"><span class="tag">React</span><span class="tag">Vite</span><span class="tag">Tailwind</span></div>
+            <div style="margin-top:.75rem"><a class="btn" href="#">Live demo</a> <a class="btn-outline" href="#">View code</a></div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    
+
+    <!-- CONTACT -->
+    <section id="contact" class="section" aria-label="Contact">
+      <h2 class="section-title">Let's work together</h2>
+      <div class="contact-wrap">
+        <div class="contact-grid">
+          <div class="info">
+            <p>Available for freelance & full‑time roles. I typically respond within 24–48 hours.</p>
+            <p>📧 <a href="mailto:komuntaleliz152@gmail.com">komuntaleliz152@gmail.com</a></p>
+            <p>📱 <a href="tel:+256761375079">+256 761 375 079</a></p>
+            <div style="margin-top:.5rem">
+              <a class="btn" href="mailto:komuntaleliz152@gmail.com">Email me</a>
+            </div>
+          </div>
+
+          <div>
+            <form id="contact-form" class="contact-form" data-endpoint="">
+              <input name="name" type="text" placeholder="Your name" required>
+              <input name="email" type="email" placeholder="Your email" required>
+              <textarea name="message" rows="5" placeholder="A short message" required></textarea>
+              <button type="submit">Send message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Komuntale Elizabeth • Built with ❤️</p>
+      <p style="margin-top:.5rem;color:#d1d5db">Follow: <a href="#" style="color:var(--accent)">GitHub</a> • <a href="#" style="color:var(--accent)">LinkedIn</a></p>
+    </div>
+  </footer>
+
+</body>
+
+</html>
