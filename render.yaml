@@ -1,8 +1,8 @@
 services:
   - type: web
     name: elizabeth-portfolio
-    runtime: static
-    buildCommand: echo "No build required"
+    env: static
+    buildCommand: echo "Static site - no build needed"
     staticPublishPath: .
     routes:
       - type: rewrite
