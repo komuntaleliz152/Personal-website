@@ -1,0 +1,516 @@
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Chatbot from '../components/Chatbot';
+import { strapiService } from '../services/strapiService';
+import { BookOpen, Search, Download, Mail, MessageCircle, Play } from 'lucide-react';
+
+// Helper function to extract plain text from HTML or rich text blocks
+const extractTextFromBlocks = (content) => {
+  if (!content) return '';
+
+  // If content is HTML string (from CKEditor5), strip HTML tags
+  if (typeof content === 'string') {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    return tempDiv.textContent || tempDiv.innerText || '';
+  }
+
+  // Handle rich text array format (fallback for older format)
+  if (Array.isArray(content)) {
+    return content
+      .map((block) => {
+        if (block.children) {
+          return block.children.map((child) => child.text || '').join(' ');
+        }
+        return '';
+      })
+      .join(' ');
+  }
+
+  return '';
+};
+
+const KnowledgeHub = () => {
+  const [articles, setArticles] = useState([]);
+  const [videos, setVideos] = useState([]);
+  const [hubSettings, setHubSettings] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedTopic, setSelectedTopic] = useState('All');
+
+  // Fetch articles and videos from Strapi
+  useEffect(() => {
+    async function fetchContent() {
+      try {
+        const [articlesData, videosData] = await Promise.all([
+          strapiService.getArticles(),
+          strapiService.getVideos(),
+        ]);
+
+        setArticles(articlesData || []);
+        setVideos(videosData || []);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to load content');
+        setLoading(false);
+        console.error('❌ Error:', err);
+      }
+    }
+
+    fetchContent();
+  }, []);
+
+  // Get unique categories
+  const categories = [
+    'All',
+    ...new Set(articles.filter((article) => article?.category).map((article) => article.category)),
+  ];
+
+  // Get unique topics
+  const topics = [
+    'All',
+    ...new Set(articles.filter((article) => article?.topic).map((article) => article.topic)),
+  ];
+
+  // Filter articles - search, category, topic
+  const filteredArticles = articles.filter((article) => {
+    if (!article) return false;
+
+    const textContent = extractTextFromBlocks(article.content) || '';
+    const titleText = article.title || '';
+    const categoryText = article.category || '';
+    const topicText = article.topic || '';
+
+    const query = (searchTerm || '').trim().toLowerCase();
+
+    const matchesSearch =
+      !query ||
+      titleText.toLowerCase().includes(query) ||
+      textContent.toLowerCase().includes(query) ||
+      categoryText.toLowerCase().includes(query) ||
+      topicText.toLowerCase().includes(query);
+
+    const matchesCategory = selectedCategory === 'All' || article.category === selectedCategory;
+    const matchesTopic = selectedTopic === 'All' || article.topic === selectedTopic;
+
+    return matchesSearch && matchesCategory && matchesTopic;
+  });
+
+  return (
+    <div className="min-h-screen bg-white">
+      <Header />
+
+      {/* Hero Section */}
+      <div
+        className="py-28 md:py-32 bg-cover bg-center bg-no-repeat relative"
+        style={{
+          backgroundImage: hubSettings?.hero_image
+            ? `url(${strapiService.getImageUrl(hubSettings.hero_image)})`
+            : articles[0]?.hero_image
+            ? `url(${strapiService.getImageUrl(articles[0].hero_image)})`
+            : "url('/images/home.jpg')",
+        }}
+      >
+        {/* Dark gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
+
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 drop-shadow-xl">
+            {hubSettings?.title || 'Knowledge Hub'}
+          </h1>
+          <p className="text-lg md:text-2xl text-white max-w-3xl mx-auto mb-8 drop-shadow-md">
+            {hubSettings?.subtitle ||
+              'Discover expert insights, farming techniques, and sustainable practices from Rugyeyo Farm'}
+          </p>
+          <button className="inline-flex items-center justify-center gap-2 backdrop-blur-sm bg-white/10 border border-white/40 hover:bg-white/20 text-white font-semibold py-3.5 px-8 rounded-full text-base md:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+            Explore Resources
+          </button>
+        </div>
+      </div>
+
+      {/* Search and Filters */}
+      <div className="py-6 md:py-8 bg-white border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Search Bar */}
+          <div className="mb-5 md:mb-6">
+            <div className="relative max-w-2xl mx-auto">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <input
+                type="text"
+                placeholder="Search articles by title, content, category or topic..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-full focus:ring-2 focus:ring-amber-800 focus:border-amber-800 transition-all text-base"
+              />
+            </div>
+          </div>
+
+          {/* Filters in one row on medium+ screens */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4">
+            {/* Category chips */}
+            <div className="flex flex-wrap items-center gap-2 md:gap-3">
+              <span className="text-sm font-medium text-gray-600 mr-1">Filter by:</span>
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+                    selectedCategory === category
+                      ? 'bg-amber-800 text-white shadow-md'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+
+            {/* Topic chips */}
+            {topics.length > 1 && (
+              <div className="flex flex-wrap items-center gap-2 md:gap-3">
+                <span className="text-sm font-medium text-gray-600 mr-1">Topics:</span>
+                {topics.map((topic) => (
+                  <button
+                    key={topic}
+                    onClick={() => setSelectedTopic(topic)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
+                      selectedTopic === topic
+                        ? 'bg-amber-800 text-white'
+                        : 'bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200'
+                    }`}
+                  >
+                    {topic
+                      .charAt(0)
+                      .toUpperCase() + topic.slice(1).replace(/([A-Z])/g, ' $1').trim()}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Articles Grid */}
+      <div className="py-14 md:py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {!loading && !error && filteredArticles.length > 0 && (
+            <div className="mb-8 text-center">
+              <p className="text-gray-600 text-sm md:text-base">
+                Showing{' '}
+                <span className="font-semibold text-gray-900">{filteredArticles.length}</span>{' '}
+                article{filteredArticles.length !== 1 ? 's' : ''}
+              </p>
+            </div>
+          )}
+
+          {loading ? (
+            <div className="text-center py-20">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-amber-800" />
+              <p className="mt-4 text-gray-600 font-medium">Loading articles...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-20 bg-white rounded-2xl shadow-sm p-12">
+              <p className="text-red-600 font-semibold text-lg">{error}</p>
+              <p className="text-gray-500 mt-2">Make sure Strapi is running on http://localhost:1337</p>
+            </div>
+          ) : filteredArticles.length === 0 ? (
+            <div className="text-center py-20 bg-white rounded-2xl shadow-sm p-12">
+              <BookOpen className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+              <p className="text-gray-900 font-semibold text-lg">No articles found</p>
+              {articles.length === 0 ? (
+                <p className="text-gray-500 mt-2">Add articles in Strapi admin panel</p>
+              ) : (
+                <p className="text-gray-500 mt-2">Try adjusting your search or filters</p>
+              )}
+            </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredArticles.map((article) => {
+                const textContent = extractTextFromBlocks(article.content);
+                const excerpt =
+                  (textContent && textContent.substring(0, 120)) ||
+                  'Discover expert insights on sustainable farming practices.';
+                const imageUrl = article.featured_media
+                  ? strapiService.getImageUrl(article.featured_media)
+                  : '/us.jpeg';
+
+                return (
+                  <Link
+                    key={article.id}
+                    to={`/article/${article.documentId || article.id}`}
+                    className="group block"
+                  >
+                    <article className="relative h-[460px] rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 bg-black">
+                      {/* Background image */}
+                      <div
+                        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                        style={{ backgroundImage: `url(${imageUrl})` }}
+                      />
+                      {/* Bottom gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-transparent" />
+
+                      {/* Content */}
+                      <div className="relative h-full flex flex-col justify-between p-6 md:p-7">
+                        {article.category && (
+                          <div className="flex-shrink-0">
+                            <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-[11px] font-semibold rounded-full uppercase tracking-wide">
+                              {article.category}
+                            </span>
+                          </div>
+                        )}
+
+                        <div className="flex-1 flex flex-col justify-end space-y-3">
+                          <h3
+                            className="text-2xl md:text-3xl font-bold leading-tight line-clamp-2"
+                            style={{
+                              color: '#fff',
+                              textShadow: '0 2px 4px rgba(0,0,0,0.9), 0 4px 8px rgba(0,0,0,0.7)',
+                            }}
+                          >
+                            {article.title || 'Untitled'}
+                          </h3>
+
+                          <p
+                            className="text-sm md:text-base line-clamp-3 leading-relaxed"
+                            style={{
+                              color: '#fff',
+                              textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 2px 6px rgba(0,0,0,0.7)',
+                            }}
+                          >
+                            {excerpt}
+                          </p>
+
+                          <button className="bg-amber-800 hover:bg-amber-900 text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-all duration-300 inline-flex items-center gap-2 w-fit group/button">
+                            Read more
+                            <svg
+                              className="w-4 h-4 transition-transform duration-300 group-hover/button:translate-x-1"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M9 5l7 7-7 7"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </article>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Video Section */}
+      {videos.length > 0 && (
+        <div className="py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16 md:mb-20">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
+                Video Tutorials &amp; Insights
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Watch our expert videos on sustainable farming practices, coffee processing, and
+                agricultural innovation.
+              </p>
+            </div>
+
+            <div className="space-y-24 md:space-y-32">
+              {videos.map((video, idx) => {
+                const videoUrl = strapiService.getVideoUrl(video.video);
+                const thumbnailUrl = video.thumbnail
+                  ? strapiService.getImageUrl(video.thumbnail)
+                  : null;
+                const isContentLeft = idx % 2 === 0;
+
+                return (
+                  <div key={video.id} className="grid md:grid-cols-2 gap-16 md:gap-20 items-center">
+                    {/* Content */}
+                    <div className={isContentLeft ? 'md:order-1' : 'md:order-2'}>
+                      <div className="space-y-5">
+                        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-amber-800 leading-tight">
+                          Ever wondered how specialty coffee is produced?
+                        </h3>
+
+                        <p className="text-gray-700 leading-relaxed text-base">
+                          Watch this video to see how our delicious coffee is made. Let us know any
+                          questions you have in the comments below.
+                        </p>
+
+                        <div className="border-l-4 border-amber-800 bg-gray-50 pl-6 py-4 rounded-r-lg">
+                          <p className="text-sm text-gray-600 mb-2">
+                            Photo and Video Credit to{' '}
+                            <span className="font-semibold text-gray-800">Panos Karakitsos</span>
+                          </p>
+                          <p className="text-sm">
+                            <a
+                              href="https://www.panoskarakitsos.com"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-amber-800 hover:text-amber-900 font-semibold underline"
+                            >
+                              www.panoskarakitsos.com
+                            </a>
+                            <span className="text-gray-500"> | panos_photography</span>
+                          </p>
+                        </div>
+
+                        <p className="text-gray-700 leading-relaxed text-base">
+                          Explore Rugyeyo Farm&apos;s coffee and banana cultivation, from planting
+                          to processing. The video details practical farming techniques, including
+                          water management and pest control. Discover the farm&apos;s expansion
+                          plans for coffee export and processing.
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Video */}
+                    <div className={isContentLeft ? 'md:order-2' : 'md:order-1'}>
+                      <div className="space-y-6">
+                        <div className="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl">
+                          {videoUrl ? (
+                            <video
+                              controls
+                              poster={thumbnailUrl || undefined}
+                              className="w-full h-full object-cover"
+                            >
+                              <source src={videoUrl} type="video/mp4" />
+                              Your browser does not support the video tag.
+                            </video>
+                          ) : (
+                            <div className="flex items-center justify-center h-full bg-black">
+                              <Play className="h-16 w-16 text-white opacity-50" />
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="space-y-3">
+                          <h4 className="text-xl md:text-2xl font-bold text-gray-900">
+                            {video.title || 'Untitled Video'}
+                          </h4>
+                          <div className="flex items-center gap-3 flex-wrap">
+                            {video.category && (
+                              <span className="px-4 py-1.5 bg-amber-800 text-white text-xs font-semibold rounded-full uppercase tracking-wide">
+                                {video.category}
+                              </span>
+                            )}
+                            {video.duration && (
+                              <span className="px-4 py-1.5 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full">
+                                {video.duration}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Resources & Engagement Section */}
+      <div className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Learn More About Sustainable Farming
+            </h2>
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              Access free resources, connect with our experts, and stay updated on the latest
+              sustainable agriculture practices.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Download Resources */}
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center">
+              <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Download className="h-8 w-8 text-amber-800" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Free Guides</h3>
+              <p className="text-gray-600 text-sm mb-6">
+                Download our comprehensive guides on coffee farming, sustainable practices, and
+                organic agriculture.
+              </p>
+              <a
+                href="/contact"
+                className="inline-block bg-amber-800 hover:bg-amber-900 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+              >
+                Download an Article
+              </a>
+            </div>
+
+            {/* Newsletter */}
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center">
+              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Mail className="h-8 w-8 text-green-800" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Newsletter</h3>
+              <p className="text-gray-600 text-sm mb-6">
+                Subscribe to receive monthly insights, farming tips, and updates from Rugyeyo Farm.
+              </p>
+              <a
+                href="/#newsletter"
+                className="inline-block bg-amber-800 hover:bg-amber-900 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+              >
+                Subscribe Now
+              </a>
+            </div>
+
+            {/* Expert Consultation */}
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center">
+              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <MessageCircle className="h-8 w-8 text-blue-800" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Ask an Expert</h3>
+              <p className="text-gray-600 text-sm mb-6">
+                Have questions about sustainable farming? Connect with our experienced agricultural
+                experts.
+              </p>
+              <a
+                href="/contact"
+                className="inline-block bg-amber-800 hover:bg-amber-900 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+              >
+                Contact Us
+              </a>
+            </div>
+          </div>
+
+          {/* Additional Info Banner */}
+          <div className="mt-12 bg-white rounded-xl shadow-lg p-8 text-center">
+            <BookOpen className="h-12 w-12 text-amber-800 mx-auto mb-4" />
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">Visit Our Farm</h3>
+            <p className="text-gray-600 text-lg mb-6 max-w-2xl mx-auto">
+              See sustainable farming in action. Book a tour to learn directly from our experts and
+              experience our practices firsthand.
+            </p>
+            <a
+              href="/events-tours"
+              className="inline-block bg-amber-800 hover:bg-amber-900 text-white px-8 py-3 rounded-lg font-bold transition-colors"
+            >
+              Book a Farm Tour
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+      <Chatbot />
+    </div>
+  );
+};
+
+export default KnowledgeHub;
