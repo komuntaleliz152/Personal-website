@@ -163,36 +163,35 @@
     }
 
     .hero {
-      display: flex;
-      flex-wrap: wrap;
-      min-height: auto;
-      background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+      display: grid;
+      grid-template-columns: 1fr 380px;
       align-items: center;
-      justify-content: center;
-      padding: 4rem 5% 4rem;
-      max-width: 1400px;
+      gap: 2.5rem;
+      padding: 4rem 5%;
+      max-width: 1100px;
       margin: 0 auto;
-      gap: 3rem;
+      background: transparent;
       position: relative;
     }
 
     .hero::before {
       content: '';
       position: absolute;
-      top: 0;
-      right: 0;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 70%);
+      top: -20px;
+      right: -20px;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.06) 0%, transparent 70%);
       border-radius: 50%;
       z-index: 0;
+      pointer-events: none;
     }
 
     .hero-content {
-      flex: 1 1 500px;
       padding: 0;
       position: relative;
       z-index: 1;
+      text-align: left;
     }
 
     .hero-content .greeting {
@@ -204,13 +203,14 @@
     }
 
     .hero-content h1 {
-      font-size: 3rem;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
       color: #111827;
       margin-bottom: 0.25rem;
       font-weight: 800;
-      line-height: 1.05;
+      line-height: 1.02;
       letter-spacing: -0.02em;
       max-width: 48ch;
+      word-break: break-word;
     }
 
     .hero-content h1 .muted {
@@ -281,17 +281,17 @@
 
     .btn-primary {
       display: inline-block;
-      padding: 0.875rem 2rem;
+      padding: 0.75rem 1.5rem;
       background-color: #4f46e5;
       color: #fff;
       text-decoration: none;
-      border-radius: 10px;
+      border-radius: 9999px;
       font-weight: 600;
       font-size: 1rem;
       border: none;
       cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.15);
+      transition: all 0.15s ease;
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.12);
     }
 
     .btn-primary:hover {
@@ -304,20 +304,20 @@
       border: 2px solid #4f46e5;
       color: #4f46e5;
       background: white;
-      padding: 0.875rem 2rem;
+      padding: 0.75rem 1.5rem;
       text-decoration: none;
-      border-radius: 10px;
+      border-radius: 9999px;
       font-weight: 600;
       font-size: 1rem;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
       display: inline-block;
     }
 
     .btn-secondary:hover {
       background-color: #4f46e5;
       color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(79, 70, 229, 0.14);
     }
 
     .btn {
@@ -381,6 +381,7 @@
       border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
       animation: morph 8s ease-in-out infinite;
       z-index: -1;
+      pointer-events: none;
     }
 
     @keyframes morph {
@@ -912,6 +913,10 @@
         min-height: auto;
       }
 
+      .hero-content {
+        text-align: center;
+      }
+
       .hero::before {
         width: 300px;
         height: 300px;
@@ -1087,10 +1092,10 @@
 
   <section id="home" class="hero">
     <div class="hero-content">
-      <p class="greeting">Hi, my name is</p>
-      <h1>Elizabeth Komuntale <span class="muted">— Full‑Stack Developer</span></h1>
-      <h2 class="sub">I build accessible, maintainable web and mobile applications for agriculture and small businesses.</h2>
-      <p>Experienced in React, React Native, Node.js and Django — I focus on performance, accessibility, and shipping production-ready features.</p>
+      <p class="greeting">Hi, I'm</p>
+      <h1>Elizabeth Komuntale </h1>
+      <h2 class="sub">I'm a passionate Full Stack Developer with a love for creating digital solutions that solve real-world
+          problems.</h2>I focus on performance, accessibility, and shipping production-ready features.</p>
       <div class="hero-buttons">
         <a href="#projects" class="btn-primary" aria-label="View projects">View Projects</a>
         <a href="/resume.pdf" class="btn-secondary" target="_blank" rel="noopener" aria-label="Download CV">Download CV</a>
@@ -1105,11 +1110,7 @@
       </div>
     </div>
     <div class="hero-image">
-      <picture>
-        <source srcset="assets/mummy.webp" type="image/webp">
-        <source srcset="assets/mummy-800.jpg" type="image/jpeg">
-        <img src="mummy.jpg" alt="Portrait of Elizabeth Komuntale" loading="lazy" width="400" height="400" />
-      </picture>
+      <img src="mummy.jpg" alt="Portrait of Elizabeth Komuntale" loading="lazy" width="400" height="400" />
     </div>
   </section>
 
