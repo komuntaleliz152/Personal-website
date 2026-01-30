@@ -101,7 +101,7 @@ const KnowledgeHub = () => {
   });
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#0b0b0d] text-slate-200">
       <Header />
 
       {/* Hero Section */}
@@ -133,12 +133,12 @@ const KnowledgeHub = () => {
       </div>
 
       {/* Search and Filters */}
-      <div className="py-6 md:py-8 bg-white border-b border-gray-200">
+      <div className="py-6 md:py-8 bg-transparent border-b border-gray-700">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Search Bar */}
           <div className="mb-5 md:mb-6">
             <div className="relative max-w-2xl mx-auto">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 h-5 w-5" />
               <input
                 type="text"
                 placeholder="Search articles by title, content, category or topic..."
@@ -153,7 +153,7 @@ const KnowledgeHub = () => {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4">
             {/* Category chips */}
             <div className="flex flex-wrap items-center gap-2 md:gap-3">
-              <span className="text-sm font-medium text-gray-600 mr-1">Filter by:</span>
+              <span className="text-sm font-medium text-slate-300 mr-1">Filter by:</span>
               {categories.map((category) => (
                 <button
                   key={category}
@@ -161,7 +161,7 @@ const KnowledgeHub = () => {
                   className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
                     selectedCategory === category
                       ? 'bg-amber-800 text-white shadow-md'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-gray-700' 
                   }`}
                 >
                   {category}
@@ -172,7 +172,7 @@ const KnowledgeHub = () => {
             {/* Topic chips */}
             {topics.length > 1 && (
               <div className="flex flex-wrap items-center gap-2 md:gap-3">
-                <span className="text-sm font-medium text-gray-600 mr-1">Topics:</span>
+                <span className="text-sm font-medium text-slate-300 mr-1">Topics:</span>
                 {topics.map((topic) => (
                   <button
                     key={topic}
@@ -180,7 +180,7 @@ const KnowledgeHub = () => {
                     className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
                       selectedTopic === topic
                         ? 'bg-amber-800 text-white'
-                        : 'bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200'
+                        : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-gray-700'
                     }`}
                   >
                     {topic
@@ -195,13 +195,13 @@ const KnowledgeHub = () => {
       </div>
 
       {/* Articles Grid */}
-      <div className="py-14 md:py-16 bg-gray-50">
+      <div className="py-14 md:py-16 bg-transparent">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {!loading && !error && filteredArticles.length > 0 && (
             <div className="mb-8 text-center">
-              <p className="text-gray-600 text-sm md:text-base">
+              <p className="text-slate-300 text-sm md:text-base">
                 Showing{' '}
-                <span className="font-semibold text-gray-900">{filteredArticles.length}</span>{' '}
+                <span className="font-semibold text-amber-800">{filteredArticles.length}</span>{' '}
                 article{filteredArticles.length !== 1 ? 's' : ''}
               </p>
             </div>
@@ -210,21 +210,21 @@ const KnowledgeHub = () => {
           {loading ? (
             <div className="text-center py-20">
               <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-amber-800" />
-              <p className="mt-4 text-gray-600 font-medium">Loading articles...</p>
+              <p className="mt-4 text-slate-300 font-medium">Loading articles...</p>
             </div>
           ) : error ? (
-            <div className="text-center py-20 bg-white rounded-2xl shadow-sm p-12">
+            <div className="text-center py-20 bg-gray-900/60 rounded-2xl shadow-sm p-12">
               <p className="text-red-600 font-semibold text-lg">{error}</p>
-              <p className="text-gray-500 mt-2">Make sure Strapi is running on http://localhost:1337</p>
+              <p className="text-slate-400 mt-2">Make sure Strapi is running on http://localhost:1337</p>
             </div>
           ) : filteredArticles.length === 0 ? (
-            <div className="text-center py-20 bg-white rounded-2xl shadow-sm p-12">
-              <BookOpen className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-900 font-semibold text-lg">No articles found</p>
+            <div className="text-center py-20 bg-gray-900/60 rounded-2xl shadow-sm p-12">
+              <BookOpen className="h-16 w-16 text-slate-400 mx-auto mb-4" />
+              <p className="text-white font-semibold text-lg">No articles found</p>
               {articles.length === 0 ? (
-                <p className="text-gray-500 mt-2">Add articles in Strapi admin panel</p>
+                <p className="text-slate-400 mt-2">Add articles in Strapi admin panel</p>
               ) : (
-                <p className="text-gray-500 mt-2">Try adjusting your search or filters</p>
+                <p className="text-slate-400 mt-2">Try adjusting your search or filters</p>
               )}
             </div>
           ) : (
@@ -313,13 +313,13 @@ const KnowledgeHub = () => {
 
       {/* Video Section */}
       {videos.length > 0 && (
-        <div className="py-24 bg-white">
+        <div className="py-24 bg-transparent">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 md:mb-20">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">
                 Video Tutorials &amp; Insights
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
                 Watch our expert videos on sustainable farming practices, coffee processing, and
                 agricultural innovation.
               </p>
@@ -342,15 +342,15 @@ const KnowledgeHub = () => {
                           Ever wondered how specialty coffee is produced?
                         </h3>
 
-                        <p className="text-gray-700 leading-relaxed text-base">
+                          <p className="text-slate-300 leading-relaxed text-base">
                           Watch this video to see how our delicious coffee is made. Let us know any
                           questions you have in the comments below.
                         </p>
 
-                        <div className="border-l-4 border-amber-800 bg-gray-50 pl-6 py-4 rounded-r-lg">
-                          <p className="text-sm text-gray-600 mb-2">
+                        <div className="border-l-4 border-amber-800 bg-white/5 pl-6 py-4 rounded-r-lg">
+                          <p className="text-sm text-slate-300 mb-2">
                             Photo and Video Credit to{' '}
-                            <span className="font-semibold text-gray-800">Panos Karakitsos</span>
+                            <span className="font-semibold text-slate-200">Panos Karakitsos</span>
                           </p>
                           <p className="text-sm">
                             <a
@@ -361,11 +361,11 @@ const KnowledgeHub = () => {
                             >
                               www.panoskarakitsos.com
                             </a>
-                            <span className="text-gray-500"> | panos_photography</span>
+                            <span className="text-slate-400"> | panos_photography</span>
                           </p>
                         </div>
 
-                        <p className="text-gray-700 leading-relaxed text-base">
+                        <p className="text-slate-300 leading-relaxed text-base">
                           Explore Rugyeyo Farm&apos;s coffee and banana cultivation, from planting
                           to processing. The video details practical farming techniques, including
                           water management and pest control. Discover the farm&apos;s expansion
@@ -395,7 +395,7 @@ const KnowledgeHub = () => {
                         </div>
 
                         <div className="space-y-3">
-                          <h4 className="text-xl md:text-2xl font-bold text-gray-900">
+                          <h4 className="text-xl md:text-2xl font-bold text-white">
                             {video.title || 'Untitled Video'}
                           </h4>
                           <div className="flex items-center gap-3 flex-wrap">
@@ -405,7 +405,7 @@ const KnowledgeHub = () => {
                               </span>
                             )}
                             {video.duration && (
-                              <span className="px-4 py-1.5 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full">
+                              <span className="px-4 py-1.5 bg-white/5 text-slate-300 text-xs font-semibold rounded-full">
                                 {video.duration}
                               </span>
                             )}
@@ -425,10 +425,10 @@ const KnowledgeHub = () => {
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Learn More About Sustainable Farming
             </h2>
-            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+            <p className="text-slate-300 text-lg max-w-3xl mx-auto">
               Access free resources, connect with our experts, and stay updated on the latest
               sustainable agriculture practices.
             </p>
@@ -436,12 +436,12 @@ const KnowledgeHub = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Download Resources */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center">
+            <div className="bg-gray-900 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center">
               <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Download className="h-8 w-8 text-amber-800" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Free Guides</h3>
-              <p className="text-gray-600 text-sm mb-6">
+              <h3 className="text-xl font-bold text-white mb-3">Free Guides</h3>
+              <p className="text-slate-300 text-sm mb-6">
                 Download our comprehensive guides on coffee farming, sustainable practices, and
                 organic agriculture.
               </p>
@@ -454,12 +454,12 @@ const KnowledgeHub = () => {
             </div>
 
             {/* Newsletter */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center">
+            <div className="bg-gray-900 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center">
               <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Mail className="h-8 w-8 text-green-800" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Newsletter</h3>
-              <p className="text-gray-600 text-sm mb-6">
+              <h3 className="text-xl font-bold text-white mb-3">Newsletter</h3>
+              <p className="text-slate-300 text-sm mb-6">
                 Subscribe to receive monthly insights, farming tips, and updates from Rugyeyo Farm.
               </p>
               <a
@@ -471,12 +471,12 @@ const KnowledgeHub = () => {
             </div>
 
             {/* Expert Consultation */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center">
+            <div className="bg-gray-900 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center">
               <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <MessageCircle className="h-8 w-8 text-blue-800" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Ask an Expert</h3>
-              <p className="text-gray-600 text-sm mb-6">
+              <h3 className="text-xl font-bold text-white mb-3">Ask an Expert</h3>
+              <p className="text-slate-300 text-sm mb-6">
                 Have questions about sustainable farming? Connect with our experienced agricultural
                 experts.
               </p>
@@ -490,10 +490,10 @@ const KnowledgeHub = () => {
           </div>
 
           {/* Additional Info Banner */}
-          <div className="mt-12 bg-white rounded-xl shadow-lg p-8 text-center">
+          <div className="mt-12 bg-gray-900 rounded-xl shadow-lg p-8 text-center">
             <BookOpen className="h-12 w-12 text-amber-800 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">Visit Our Farm</h3>
-            <p className="text-gray-600 text-lg mb-6 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-white mb-3">Visit Our Farm</h3>
+            <p className="text-slate-300 text-lg mb-6 max-w-2xl mx-auto">
               See sustainable farming in action. Book a tour to learn directly from our experts and
               experience our practices firsthand.
             </p>
