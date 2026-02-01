@@ -633,26 +633,44 @@
     }
 
     .skills {
-      background: #fafbfc;
+      background: linear-gradient(135deg, #0b0b0d 0%, #0b0b0d 100%);
+      padding: 2.5rem 0;
     }
 
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
     }
 
+    /* Breakpoint: 2 columns on medium screens */
+    @media (max-width: 1024px) {
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Breakpoint: 1 column on small screens */
+    @media (max-width: 768px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .skill-category { min-height: 260px; }
+    }
+
     .skill-category {
-      background: #ffffff;
+      background: #0f1724;
       padding: 2.5rem 2rem;
       border-radius: 24px;
       text-align: center;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      border: 2px solid #e5e7eb;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      border: 1px solid rgba(255,255,255,0.03);
       position: relative;
       cursor: pointer;
       overflow: hidden;
+
+      /* match Services card sizing and layout */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 320px;
     }
 
     .skill-category::before {
@@ -681,8 +699,8 @@
 
     .skill-category:hover {
       transform: translateY(-8px);
-      box-shadow: 0 12px 35px rgba(79, 70, 229, 0.25);
-      border-color: #d1d5db;
+      box-shadow: 0 18px 40px rgba(79, 70, 229, 0.12);
+      border-color: rgba(255,255,255,0.04);
     }
 
     .skill-category:hover::before,
@@ -694,6 +712,7 @@
     .skill-category:hover h3 {
       color: #4f46e5;
       transform: scale(1.05);
+      text-shadow: 0 4px 18px rgba(79, 70, 229, 0.06);
     }
 
     .skill-icon {
@@ -844,13 +863,17 @@
       gap: 2rem;
       margin: 0 0 1.5rem 0;
       align-items: center;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-wrap: nowrap;
+      width: 100%;
     }
 
     .contact-item {
-      text-align: center;
-      min-width: 160px;
+      flex: 1 1 auto;
+      text-align: left;
+    }
+
+    .contact-item:nth-child(2) {
+      text-align: left;
     }
 
     .contact-item-label {
@@ -965,6 +988,10 @@
         min-height: auto;
       }
 
+      /* Skills stack to single column on small screens */
+      .skills-grid { grid-template-columns: 1fr; }
+
+
       .hero-content {
         text-align: center;
       }
@@ -1064,7 +1091,7 @@
 
       .contact {
         padding: 3rem 2rem;
-        grid-template-columns: 1fr;
+        display: block;
       }
 
       .contact-info {
@@ -1077,10 +1104,6 @@
       .contact-item {
         text-align: center;
         width: 100%;
-      }
-
-      .contact p {
-        text-align: center;
       }
 
       .contact-form {
@@ -1385,14 +1408,6 @@
       <div class="contact-item">
         <div class="contact-item-label">📱 Phone</div>
         <a href="tel:+256761375079">+256 761 375 079</a>
-      </div>
-      <div class="contact-item">
-        <div class="contact-item-label">💬 WhatsApp</div>
-        <a href="https://wa.me/256761375079" target="_blank" rel="noopener noreferrer">+256 761 375 079</a>
-      </div>
-      <div class="contact-item">
-        <div class="contact-item-label">💬 WhatsApp</div>
-        <a href="https://wa.me/256761375079" target="_blank" rel="noopener noreferrer">+256 761 375 079</a>
       </div>
     </div>
 
