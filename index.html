@@ -211,7 +211,7 @@
       display: grid;
       grid-template-columns: 1fr 380px;
       align-items: center;
-      gap: 2.5rem;
+      gap: 3.5rem; /* increase gap so content doesn't run into the image */
       padding: 4rem 5%;
       max-width: 1100px;
       margin: 0 auto;
@@ -222,21 +222,22 @@
     .hero::before {
       content: '';
       position: absolute;
-      top: -20px;
-      right: -20px;
-      width: 340px;
-      height: 340px;
-      background: radial-gradient(circle, rgba(79, 70, 229, 0.06) 0%, transparent 70%);
+      top: -10px;
+      right: -80px; /* move shadow further right so content stays clear */
+      width: 220px; /* reduce size so it doesn't reach the text */
+      height: 220px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.045) 0%, transparent 65%);
       border-radius: 50%;
       z-index: 0;
       pointer-events: none;
     }
 
     .hero-content {
-      padding: 0;
+      padding: 0 1.5rem 0 0; /* add right padding so buttons/text stay left of the shadow */
       position: relative;
       z-index: 1;
       text-align: left;
+      max-width: 56ch; /* limit content width to prevent long lines reaching the image */
     }
 
     .hero-content .greeting {
@@ -307,21 +308,22 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.06);
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
       color: #ffffff;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       font-size: 1.25rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.35);
     }
 
     .social-links a:hover {
       background: #4f46e5;
       color: white;
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+      box-shadow: 0 12px 28px rgba(79, 70, 229, 0.28);
     }
 
     .btn-primary {
@@ -948,10 +950,60 @@
     }
 
     .contact-form .btn-primary {
-      width: 100%;
+      display: inline-block;
+      width: 260px;
+      height: 56px;
       margin-top: 0.5rem;
-      padding: 0.75rem 1.25rem;
-      font-size: 0.95rem;
+      padding: 0 1.5rem; /* horizontal padding */
+      line-height: 56px;
+      font-size: 1.05rem;
+      background: #0b0b0d;
+      color: #ffffff;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.03);
+      font-weight: 700;
+      position: relative;
+      box-shadow: inset 0 -5px 10px rgba(0,0,0,0.45), 0 10px 26px rgba(79,70,229,0.14);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      text-align: center;
+      display: block;
+      margin-left: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .contact-form .btn-primary::after {
+      content: '';
+      position: absolute;
+      left: 6%;
+      right: 6%;
+      bottom: -10px;
+      height: 10px;
+      background: linear-gradient(90deg, rgba(79,70,229,0.18), rgba(79,70,229,0.06));
+      filter: blur(10px);
+      border-radius: 10px;
+      z-index: -1;
+      opacity: 0.9;
+    }
+
+    .contact-form .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: inset 0 -4px 8px rgba(0,0,0,0.45), 0 14px 36px rgba(79,70,229,0.2);
+    }
+
+    @media (max-width: 520px) {
+      .contact-form .btn-primary {
+        width: 100%;
+        height: auto;
+        padding: 0.85rem 1.1rem;
+        line-height: normal;
+        font-size: 0.95rem;
+      }
+      .contact-form .btn-primary::after {
+        left: 8%;
+        right: 8%;
+        bottom: -8px;
+        height: 8px;
+      }
     }
 
     footer {
@@ -1182,7 +1234,7 @@
       </ul>
     </div>
     <div class="nav-actions">
-      <a href="/resume.pdf" class="nav-cta" target="_blank" rel="noopener">Resume</a>
+      <a href="/cv.pdf" class="nav-cta" target="_blank" rel="noopener">Resume</a>
       <a href="#contact" class="btn-hire">Hire Me</a>
     </div>
   </nav>
@@ -1195,7 +1247,7 @@
       <p>I focus on performance, accessibility, and shipping production-ready features.</p>
       <div class="hero-buttons">
         <a href="#projects" class="btn-primary" aria-label="View projects">View Projects</a>
-        <a href="/resume.pdf" class="btn-secondary" target="_blank" rel="noopener" aria-label="Download CV">Download CV</a>
+        <a href="/cv.pdf" class="btn-secondary" target="_blank" rel="noopener" aria-label="Download CV">Download CV</a>
       </div>
       <div class="social-links">
         <a href="https://github.com/komuntaleliz152" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
@@ -1203,6 +1255,12 @@
         </a>
         <a href="https://www.linkedin.com/in/elizabeth-komuntale-6b2968355/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
           <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="mailto:komuntaleliz152@gmail.com" aria-label="Email (komuntaleliz152@gmail.com)" title="Email: komuntaleliz152@gmail.com">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+        <a href="https://wa.me/0000000000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp"></i>
         </a>
       </div>
     </div>
