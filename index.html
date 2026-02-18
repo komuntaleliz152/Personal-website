@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Komuntale Elizabeth | Full Stack Developer</title>
+  <title>Komuntale Elizabeth </title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -241,11 +241,12 @@
     }
 
     .hero-content .greeting {
-      font-size: 1rem;
+      font-size: 1.1rem;
       margin-bottom: 0.5rem;
-      color: #4f46e5;
+      color: #94a3b8;
       font-weight: 600;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
     }
 
     .hero-content h1 {
@@ -267,8 +268,8 @@
     }
 
     .hero-content h2.sub {
-      font-size: 1.5rem;
-      color: #cbd5e1;
+      font-size: 1.75rem;
+      color: #4f46e5;
       margin-bottom: 1rem;
       font-weight: 700;
       line-height: 1.3;
@@ -537,29 +538,33 @@
 
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .service-card {
       background: #0f1724;
       padding: 2.5rem 2rem;
-      border-radius: 24px;
+      border-radius: 20px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
       transition: all 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.03);
-      border-top: 6px solid #5b52ea;
-      border-bottom: 6px solid #5b52ea;
+      border: 2px solid #4f46e5;
       text-align: center;
       cursor: pointer;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 320px;
+      height: 100%;
     }
 
     .service-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 12px 35px rgba(79, 70, 229, 0.25);
-      border-top-color: #4f46e5;
-      border-bottom-color: #4f46e5;
+      box-shadow: 0 12px 35px rgba(79, 70, 229, 0.35);
+      border-color: #6366f1;
     }
 
     .service-card:hover h3 {
@@ -568,30 +573,33 @@
     }
 
     .service-card h3 {
-      font-size: 1.5rem;
+      font-size: 1.375rem;
       margin-bottom: 1rem;
       color: #ffffff;
       font-weight: 700;
       transition: all 0.3s ease;
+      line-height: 1.3;
     }
 
     .service-card p {
-      color: #cbd5e1;
-      margin-bottom: 1.5rem;
-      line-height: 1.7;
-      font-size: 1rem;
+      color: #94a3b8;
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
+      font-size: 0.9375rem;
+      flex-grow: 1;
     }
 
     .service-btn {
       display: inline-block;
-      padding: 0.75rem 1.5rem;
+      padding: 0.75rem 1.75rem;
       background-color: #4f46e5;
       color: white;
       text-decoration: none;
       border-radius: 10px;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.9375rem;
       transition: all 0.2s ease;
+      margin-top: auto;
     }
 
     .service-btn:hover {
@@ -641,8 +649,8 @@
 
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
     }
 
     /* Breakpoint: 2 columns on medium screens */
@@ -653,75 +661,53 @@
     /* Breakpoint: 1 column on small screens */
     @media (max-width: 768px) {
       .skills-grid { grid-template-columns: 1fr; }
-      .skill-category { min-height: 260px; }
+      .skill-category { min-height: 200px; }
     }
 
     .skill-category {
-      background: #0f1724;
-      padding: 2.5rem 2rem;
-      border-radius: 24px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 2rem 1.5rem;
+      border-radius: 12px;
       text-align: center;
       transition: all 0.3s ease;
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(79, 70, 229, 0.3);
       position: relative;
       cursor: pointer;
-      overflow: hidden;
-
-      /* match Services card sizing and layout */
+      overflow: visible;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      min-height: 320px;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 160px;
+      height: 100%;
+      backdrop-filter: blur(10px);
     }
 
     .skill-category::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: linear-gradient(90deg, #4f46e5 0%, #6366f1 100%);
-      border-radius: 24px 24px 0 0;
-      transition: all 0.3s ease;
+      display: none;
     }
 
     .skill-category::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: linear-gradient(90deg, #4f46e5 0%, #6366f1 100%);
-      border-radius: 0 0 24px 24px;
-      transition: all 0.3s ease;
+      display: none;
     }
 
     .skill-category:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 18px 40px rgba(79, 70, 229, 0.12);
-      border-color: rgba(255,255,255,0.04);
-    }
-
-    .skill-category:hover::before,
-    .skill-category:hover::after {
-      height: 10px;
-      background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(79, 70, 229, 0.2);
+      border-color: rgba(79, 70, 229, 0.6);
     }
 
     .skill-category:hover h3 {
-      color: #4f46e5;
-      transform: scale(1.05);
-      text-shadow: 0 4px 18px rgba(79, 70, 229, 0.06);
+      color: #ffffff;
+      transform: scale(1.02);
     }
 
     .skill-icon {
       font-size: 2.5rem;
-      margin-bottom: 1.25rem;
-      color: #4f46e5;
-      filter: drop-shadow(0 2px 4px rgba(79, 70, 229, 0.1));
+      margin-bottom: 1rem;
+      color: #6366f1;
+      filter: drop-shadow(0 2px 8px rgba(99, 102, 241, 0.3));
       transition: all 0.3s ease;
     }
 
@@ -731,17 +717,17 @@
 
     .skill-category h3 {
       color: #ffffff;
-      font-size: 1.375rem;
-      margin-bottom: 0.75rem;
+      font-size: 1.0625rem;
+      margin-bottom: 0.625rem;
       font-weight: 700;
       letter-spacing: -0.01em;
       transition: all 0.3s ease;
     }
 
     .skill-category p {
-      color: #cbd5e1;
-      font-size: 1rem;
-      line-height: 1.6;
+      color: #94a3b8;
+      font-size: 0.8125rem;
+      line-height: 1.5;
       font-weight: 400;
     }
 
@@ -838,6 +824,141 @@
     }
 
     /* Contact: two-column layout */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: #0f1724;
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.03);
+      transition: all 0.3s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(79, 70, 229, 0.15);
+      border-color: rgba(79, 70, 229, 0.3);
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: #4f46e5;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .contact-details {
+      flex: 1;
+    }
+
+    .contact-details h3 {
+      font-size: 1.125rem;
+      color: #ffffff;
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+    }
+
+    .contact-details a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.9375rem;
+      transition: color 0.2s ease;
+    }
+
+    .contact-details a:hover {
+      color: #4f46e5;
+    }
+
+    .contact-form-new {
+      background: #0f1724;
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .contact-form-new .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .contact-form-new input,
+    .contact-form-new textarea {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      font-size: 0.9375rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      background: rgba(11, 11, 13, 0.6);
+      color: #cbd5e1;
+    }
+
+    .contact-form-new input::placeholder,
+    .contact-form-new textarea::placeholder {
+      color: #64748b;
+    }
+
+    .contact-form-new input:focus,
+    .contact-form-new textarea:focus {
+      outline: none;
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+      background: rgba(11, 11, 13, 0.8);
+    }
+
+    .contact-form-new textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .btn-send {
+      width: 100%;
+      padding: 0.875rem 1.5rem;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-send:hover {
+      background: #4338ca;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+    }
+
+    .btn-send i {
+      font-size: 0.875rem;
+    }
+
     .contact {
       display: grid;
       grid-template-columns: 1fr minmax(320px, 480px);
@@ -1008,18 +1129,16 @@
 
     footer {
       text-align: center;
-      padding: 3rem 5%;
-      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
-      color: #e0e7ff;
+      padding: 2rem 5%;
+      background: #0b0b0d;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255,255,255,0.05);
     }
 
     footer p {
-      font-size: 0.9375rem;
-    }
-
-    footer p:first-child {
-      color: #ffffff;
-      font-weight: 500;
+      font-size: 0.875rem;
+      font-weight: 400;
+      margin: 0;
     }
 
     /* Responsive Design */
@@ -1127,6 +1246,11 @@
         gap: 1.25rem;
       }
 
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
       .projects-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -1144,6 +1268,19 @@
       .contact {
         padding: 3rem 2rem;
         display: block;
+      }
+
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .contact-form-new {
+        order: 1;
+      }
+
+      .contact-cards {
+        order: 2;
       }
 
       .contact-info {
@@ -1241,10 +1378,10 @@
 
   <section id="home" class="hero">
     <div class="hero-content">
-      <p class="greeting">Hi, I'm</p>
-      <h1>Elizabeth Komuntale</h1>
-      <h2 class="sub">I'm a passionate Full Stack Developer with a love for creating digital solutions that solve real-world problems.</h2>
-      <p>I focus on performance, accessibility, and shipping production-ready features.</p>
+      <p class="greeting">HELLO, I'M</p>
+      <h1><span style="color: #a78bca; text-shadow: 0 4px 12px rgba(167, 139, 202, 0.4);">Elizabeth</span> Komuntale</h1>
+      <h2 class="sub">Full-Stack Software Developer</h2>
+      <p>Delivering production-ready solutions with expertise in React, React Native, Django, and modern JavaScript frameworks. Focused on performance, accessibility, and user-centric design.</p>
       <div class="hero-buttons">
         <a href="#projects" class="btn-primary" aria-label="View projects">View Projects</a>
         <a href="/cv.pdf" class="btn-secondary" target="_blank" rel="noopener" aria-label="Download CV">Download CV</a>
@@ -1259,7 +1396,7 @@
         <a href="mailto:komuntaleliz152@gmail.com" aria-label="Email (komuntaleliz152@gmail.com)" title="Email: komuntaleliz152@gmail.com">
           <i class="fa-solid fa-envelope"></i>
         </a>
-        <a href="https://wa.me/0000000000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+        <a href="https://wa.me/256761375079" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </div>
@@ -1274,27 +1411,30 @@
     <h2>About <span style="color: #4f46e5;">Me</span></h2>
     <div class="about-content">
       <div class="about-text">
-        <p>I'm a passionate Software Developer with a love for creating digital solutions that solve real-world
-          problems. My journey in tech started with a curiosity about how websites and applications work, which led me
-          to dive deep into programming and software development.</p>
+        <p>I'm a Full-Stack Software Developer with proven experience building scalable web and mobile applications. 
+          I specialize in modern JavaScript frameworks, React ecosystem, and backend development with Django and Node.js. 
+          My work focuses on delivering robust, production-ready solutions that solve real business challenges.</p>
 
-        <p>When I'm not coding, you can find me exploring new technologies, contributing to open source projects, or
-          attending tech meetups to connect with fellow developers. I believe in continuous learning and staying updated
-          with the latest industry trends.</p>
+        <p>With hands-on experience in farm management systems, business automation tools, and content management platforms, 
+          I bring a practical approach to software development. I've successfully delivered projects that improve operational 
+          efficiency and user engagement across various industries.</p>
 
-        <p>I believe in writing clean, efficient code and creating user experiences that are both beautiful and
-          functional. I'm always excited to take on new challenges and collaborate on innovative projects that make a
-          positive impact!</p>
+        <p>I'm committed to writing maintainable, well-documented code and following industry best practices. 
+          I stay current with emerging technologies and continuously expand my skill set to deliver cutting-edge solutions. 
+          I'm actively seeking opportunities to contribute to impactful projects and collaborate with innovative teams.</p>
 
         <div class="personal-info">
           <div class="info-item">
             <strong>Location:</strong> Kampala, Uganda
           </div>
           <div class="info-item">
-            <strong>Education:</strong> Certificate in Software Engeering
+            <strong>Education:</strong> Certificate in Software Engineering
           </div>
           <div class="info-item">
-            <strong>Interests:</strong> Tech meetups, Open Source,  UI/UX Design
+            <strong>Specializations:</strong> Full-Stack Development, Mobile Apps, UI/UX Design
+          </div>
+          <div class="info-item">
+            <strong>Availability:</strong> Open to freelance projects and full-time opportunities
           </div>
         </div>
       </div>
@@ -1308,81 +1448,75 @@
     <div class="services-grid">
 
       <div class="service-card">
-        <h3>Web Development</h3>
-        <p>I build responsive websites using modern tools including HTML, CSS, JS, React, and Django.</p>
-        <a href="#contact" class="service-btn">Hire Me</a>
+        <h3>Full-Stack Web Development</h3>
+        <p>End-to-end web application development using React, Django, Node.js, and modern databases. Responsive, scalable, and production-ready solutions.</p>
+        <a href="#contact" class="service-btn">Get Started</a>
       </div>
 
       <div class="service-card">
         <h3>Mobile App Development</h3>
-        <p>Cross-platform apps built with React Native for both Android & iOS.</p>
-        <a href="#contact" class="service-btn">Hire Me</a>
+        <p>Cross-platform mobile applications with React Native. Native performance for both iOS and Android from a single codebase.</p>
+        <a href="#contact" class="service-btn">Get Started</a>
       </div>
 
       <div class="service-card">
-        <h3>UI / UX Design</h3>
-        <p>Clean, intuitive user interface designs that enhance user experience.</p>
-        <a href="#contact" class="service-btn">Hire Me</a>
+        <h3>UI/UX Design & Implementation</h3>
+        <p>User-centered interface design with modern frameworks like Tailwind CSS. Focus on accessibility, performance, and conversion optimization.</p>
+        <a href="#contact" class="service-btn">Get Started</a>
       </div>
 
     </div>
   </section>
 
   <section id="skills" class="section skills">
-    <h2>My <span style="color: #4f46e5;">Skills</span></h2>
+    <h2>Skills & <span style="color: #4f46e5;">Technologies</span></h2>
     <div class="skills-grid">
       <div class="skill-category">
-        <div class="skill-icon"><i class="fab fa-js-square"></i></div>
-        <h3>JavaScript</h3>
-        <p>Modern JavaScript (ES6+)</p>
+        <div class="skill-icon"><i class="fas fa-server"></i></div>
+        <h3>Backend Development</h3>
+        <p>Python, Django, Django REST Framework, Node.js, Express.js</p>
       </div>
 
       <div class="skill-category">
         <div class="skill-icon"><i class="fab fa-react"></i></div>
-        <h3>React.js</h3>
-        <p>React & React Native</p>
-      </div>
-
-      <div class="skill-category">
-        <div class="skill-icon"><i class="fab fa-node-js"></i></div>
-        <h3>Node.js</h3>
-        <p>Server-side JavaScript</p>
+        <h3>Frontend Development</h3>
+        <p>HTML5, CSS3, JavaScript, React, React Native, Tailwind CSS</p>
       </div>
 
       <div class="skill-category">
         <div class="skill-icon"><i class="fas fa-database"></i></div>
-        <h3>MongoDB</h3>
-        <p>NoSQL Database</p>
-      </div>
-
-      <div class="skill-category">
-        <div class="skill-icon"><i class="fas fa-database"></i></div>
-        <h3>PostgreSQL</h3>
-        <p>Relational Database</p>
-      </div>
-
-      <div class="skill-category">
-        <div class="skill-icon"><i class="fab fa-html5"></i></div>
-        <h3>HTML5 & CSS3</h3>
-        <p>Modern Web Standards</p>
+        <h3>Database & Data</h3>
+        <p>PostgreSQL, MongoDB, MySQL, Database Design</p>
       </div>
 
       <div class="skill-category">
         <div class="skill-icon"><i class="fab fa-git-alt"></i></div>
-        <h3>Git & GitHub</h3>
-        <p>Version Control</p>
+        <h3>Version Control</h3>
+        <p>Git, GitHub, Collaborative Development</p>
       </div>
 
       <div class="skill-category">
-        <div class="skill-icon"><i class="fas fa-server"></i></div>
-        <h3>Express.js</h3>
-        <p>Node.js Framework</p>
+        <div class="skill-icon"><i class="fas fa-code"></i></div>
+        <h3>API Development</h3>
+        <p>RESTful APIs, API Design, Authentication, Testing</p>
       </div>
 
       <div class="skill-category">
-        <div class="skill-icon"><i class="fas fa-cogs"></i></div>
-        <h3>Strapi</h3>
-        <p>Headless CMS</p>
+        <div class="skill-icon"><i class="fas fa-tasks"></i></div>
+        <h3>Methodologies</h3>
+        <p>Agile, Scrum, Test-Driven Development</p>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-icon"><i class="fas fa-tools"></i></div>
+        <h3>Tools & Editors</h3>
+        <p>VS Code, Postman, Strapi CMS, Vite</p>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-icon"><i class="fas fa-mobile-alt"></i></div>
+        <h3>Mobile Development</h3>
+        <p>React Native, Cross-platform Apps, iOS & Android</p>
       </div>
     </div>
   </section>
@@ -1392,7 +1526,7 @@
     <div class="projects-grid">
       <div class="project">
         <div class="project-image">
-          <img src="Rugyeyo.jpg" alt="Rugyeyo Farm Management App screenshot" />
+          <img src="mob.jpg" alt="Rugyeyo Farm Management App screenshot" />
         </div>
         <div class="project-content">
           <h3>Rugyeyo Farm Management App</h3>
@@ -1403,6 +1537,46 @@
             <span>PostgreSQL</span>
             <span>Tailwind</span>
             
+          </div>
+          <!-- <div class="project-links">
+            <a href="#" class="btn">Live Demo</a>
+            <a href="#" class="btn-outline">View Code</a>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-image">
+          <img src="web app.jpeg" alt="Rugyeyo Financial Web Application screenshot" />
+        </div>
+        <div class="project-content">
+          <h3>Rugyeyo Financial Web App</h3>
+          <p>A web application for managing farm finances. Handles sales tracking, employee wages, expenses management, and provides detailed financial reports and analytics.</p>
+          <div class="tech-stack">
+            <span>React</span>
+            <span>Vite</span>
+            <span>Python</span>
+            <span>Django</span>
+          </div>
+          <!-- <div class="project-links">
+            <a href="webapp-demo.mp4" class="btn" target="_blank" rel="noopener">View Demo</a>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-image">
+          <img src="website.png" alt="Rugyeyo Website screenshot" />
+        </div>
+        <div class="project-content">
+          <h3>Rugyeyo Website and knowledge hub</h3>
+          <p>Rugyeyo Website & Knowledge Hub, which is meant to showcase farm products and serve as an information center.</p>
+          <div class="tech-stack">
+            <span>React.js</span>
+            <span>Vite</span>
+            <span>Tailwind</span>
+            <span>PostgreSQL</span>
+            <span>Strapi</span>
           </div>
           <!-- <div class="project-links">
             <a href="#" class="btn">Live Demo</a>
@@ -1430,68 +1604,80 @@
           </div> -->
         </div>
       </div>
-
-      <div class="project">
-        <div class="project-image">
-          <img src="website.png" alt="Rugyeyo Website screenshot" />
-        </div>
-        <div class="project-content">
-          <h3>Rugyeyo Website</h3>
-          <p>Rugyeyo Website & Knowledge Hub, which is meant to showcase farm products and serve as an information center.</p>
-          <div class="tech-stack">
-            <span>React.js</span>
-            <span>Vite</span>
-            <span>Tailwind</span>
-            <span>PostgreSQL</span>
-            <span>Strapi</span>
-          </div>
-          <!-- <div class="project-links">
-            <a href="#" class="btn">Live Demo</a>
-            <a href="#" class="btn-outline">View Code</a>
-          </div> -->
-        </div>
-      </div>
     </div>
   </section>
 
-  <section id="contact" class="section contact">
-    <h2>Let's Work <span style="color: #4f46e5;">Together</span></h2>
-    <p>I'm currently available for freelance work and full-time opportunities. Whether you have a project in mind or just want to chat about tech, I'd love to hear from you!</p>
+  <section id="contact" class="section">
+    <h2>Get In <span style="color: #4f46e5;">Touch</span></h2>
+    <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.125rem; color: #cbd5e1;">I'm currently accepting new projects and opportunities. Whether you need a full-stack web application, mobile app development, or technical consultation, I'm here to help transform your ideas into reality.</p>
 
-    <div class="contact-info">
-      <div class="contact-item">
-        <div class="contact-item-label">📧 Email</div>
-        <a href="mailto:komuntaleliz152@gmail.com">komuntaleliz152@gmail.com</a>
+    <div class="contact-wrapper">
+      <div class="contact-cards">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <div class="contact-details">
+            <h3>Email</h3>
+            <a href="mailto:komuntaleliz152@gmail.com">komuntaleliz152@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <div class="contact-details">
+            <h3>WhatsApp</h3>
+            <a href="https://wa.me/256761375079" target="_blank" rel="noopener noreferrer">+256 761 375 079</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fab fa-linkedin-in"></i>
+          </div>
+          <div class="contact-details">
+            <h3>LinkedIn</h3>
+            <a href="https://www.linkedin.com/in/elizabeth-komuntale-6b2968355/" target="_blank" rel="noopener noreferrer">Elizabeth Komuntale</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fab fa-github"></i>
+          </div>
+          <div class="contact-details">
+            <h3>GitHub</h3>
+            <a href="https://github.com/komuntaleliz152" target="_blank" rel="noopener noreferrer">komuntaleliz152</a>
+          </div>
+        </div>
       </div>
-      <div class="contact-item">
-        <div class="contact-item-label">📱 Phone</div>
-        <a href="tel:+256761375079">+256 761 375 079</a>
-      </div>
+
+      <form action="https://formspree.io/f/xyzvvlbw" method="POST" class="contact-form-new">
+        <div class="form-group">
+          <input type="text" id="name" name="name" placeholder="Your Name" required>
+        </div>
+
+        <div class="form-group">
+          <input type="email" id="email" name="_replyto" placeholder="Your Email" required>
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="subject" name="subject" placeholder="Subject">
+        </div>
+
+        <div class="form-group">
+          <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+        </div>
+
+        <button type="submit" class="btn-send">Send Message <i class="fa-solid fa-paper-plane"></i></button>
+      </form>
     </div>
-
-    <form action="https://formspree.io/f/xyzvvlbw" method="POST" class="contact-form">
-      <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" required>
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="_replyto" required>
-      </div>
-
-      <div class="form-group">
-        <label for="message">Your Message</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-      </div>
-
-      <button type="submit" class="btn-primary">Send Message</button>
-    </form>
   </section>
 
   <footer>
-    <p>&copy; 2025 Komuntale Elizabeth. All rights reserved.</p>
-    <p style="margin-top: 1rem;">Built with passion and attention to detail</p>
+    <p>&copy; 2025 Elizabeth Komuntale. All Rights Reserved.</p>
   </footer>
 
   <script>
