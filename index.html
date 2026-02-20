@@ -311,8 +311,9 @@
       justify-content: center;
       width: 56px;
       height: 56px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.6);
+      border: 3px solid #4f46e5;
       color: #ffffff;
       text-decoration: none;
       transition: all 0.25s ease;
@@ -325,6 +326,7 @@
       color: white;
       transform: translateY(-3px);
       box-shadow: 0 12px 28px rgba(79, 70, 229, 0.28);
+      border-color: #6366f1;
     }
 
     .btn-primary {
@@ -418,6 +420,70 @@
       align-items: center;
       position: relative;
       z-index: 1;
+    }
+
+    .floating-icons {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .floating-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 2.5rem;
+      color: #ffffff;
+      opacity: 0.95;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+      z-index: 10;
+      animation: orbit 12s linear infinite;
+      background: rgba(15, 23, 42, 0.8);
+      border: 3px solid #4f46e5;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .floating-icon:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .floating-icon:nth-child(2) {
+      animation-delay: -2s;
+    }
+
+    .floating-icon:nth-child(3) {
+      animation-delay: -4s;
+    }
+
+    .floating-icon:nth-child(4) {
+      animation-delay: -6s;
+    }
+
+    .floating-icon:nth-child(5) {
+      animation-delay: -8s;
+    }
+
+    .floating-icon:nth-child(6) {
+      animation-delay: -10s;
+    }
+
+    @keyframes orbit {
+      0% {
+        transform: rotate(0deg) translateX(250px) rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg) translateX(250px) rotate(-360deg);
+      }
     }
 
     .hero-image::before {
@@ -1371,7 +1437,6 @@
       </ul>
     </div>
     <div class="nav-actions">
-      <a href="/cv.pdf" class="nav-cta" target="_blank" rel="noopener">Resume</a>
       <a href="#contact" class="btn-hire">Hire Me</a>
     </div>
   </nav>
@@ -1383,8 +1448,8 @@
       <h2 class="sub">Full-Stack Software Developer</h2>
       <p>Delivering production-ready solutions with expertise in React, React Native, Django, and modern JavaScript frameworks. Focused on performance, accessibility, and user-centric design.</p>
       <div class="hero-buttons">
-        <a href="#projects" class="btn-primary" aria-label="View projects">View Projects</a>
-        <a href="/cv.pdf" class="btn-secondary" target="_blank" rel="noopener" aria-label="Download CV">Download CV</a>
+        <a href="#contact" class="btn-primary" aria-label="Get in touch">Get In Touch</a>
+        <a href="/cv.pdf" class="btn-secondary" download="Elizabeth_Komuntale_CV.pdf" aria-label="Download CV">Download CV</a>
       </div>
       <div class="social-links">
         <a href="https://github.com/komuntaleliz152" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
@@ -1402,6 +1467,14 @@
       </div>
     </div>
     <div class="hero-image">
+      <div class="floating-icons">
+        <i class="fab fa-react floating-icon"></i>
+        <i class="fab fa-js-square floating-icon" style="color: #f7df1e;"></i>
+        <i class="fab fa-python floating-icon" style="color: #3776ab;"></i>
+        <i class="fab fa-node-js floating-icon" style="color: #68a063;"></i>
+        <i class="fas fa-database floating-icon" style="color: #6366f1;"></i>
+        <i class="fab fa-git-alt floating-icon" style="color: #f05032;"></i>
+      </div>
       <img src="mummy.jpg" alt="Portrait of Elizabeth Komuntale" loading="lazy" width="400" height="400" />
     </div>
   </section>
@@ -1428,13 +1501,13 @@
             <strong>Location:</strong> Kampala, Uganda
           </div>
           <div class="info-item">
-            <strong>Education:</strong> Certificate in Software Engineering
+            <strong>Education:</strong> Advanced Certificate in Software Engineering
           </div>
           <div class="info-item">
-            <strong>Specializations:</strong> Full-Stack Development, Mobile Apps, UI/UX Design
+            <strong>Specializations:</strong>Full-Stack, Mobile & Web Apps, UI/UX Design
           </div>
           <div class="info-item">
-            <strong>Availability:</strong> Open to freelance projects and full-time opportunities
+            <strong>Availability:</strong> Open to freelance, remote, and full-time software development opportunities.
           </div>
         </div>
       </div>
@@ -1599,7 +1672,25 @@
             <span>Express</span>
           </div>
           <div class="project-links">
-            <a href="https://final-project-1-7xgu.onrender.com" class="btn" target="_blank" rel="noopener">Live Demo</a>
+            <a href="https://final-project-1-7xgu.onrender.com" class="btn" target="_blank" rel="noopener">View Live</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-image">
+          <img src="Bites.jpg" alt="Delicious Bites Restaurant screenshot" />
+        </div>
+        <div class="project-content">
+          <h3>Delicious Bites Restaurant</h3>
+          <p>A restaurant website showcasing the menu and activities. Features an interactive interface for customers to explore dining options and events.</p>
+          <div class="tech-stack">
+            <span>HTML5</span>
+            <span>CSS3</span>
+            <span>JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="https://software-git-master-komuntale-elizabeths-projects.vercel.app/" class="btn" target="_blank" rel="noopener">View Live</a>
           </div>
         </div>
       </div>
