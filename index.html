@@ -6,6 +6,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Elizabeth Komuntale - Full-Stack Software Developer</title>
   
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Elizabeth Komuntale - Full-Stack Software Developer specializing in React, React Native, Django, and modern web technologies. View my portfolio of web and mobile applications.">
+  <meta name="keywords" content="Elizabeth Komuntale, Software Developer, Full-Stack Developer, React Developer, Django Developer, React Native, Web Developer, Mobile App Developer, Kampala Uganda, Portfolio">
+  <meta name="author" content="Elizabeth Komuntale">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Meta Tags (Facebook, LinkedIn) -->
+  <meta property="og:title" content="Elizabeth Komuntale - Full-Stack Software Developer">
+  <meta property="og:description" content="Experienced Full-Stack Developer specializing in React, React Native, Django, and modern JavaScript frameworks. Building scalable web and mobile applications.">
+  <meta property="og:image" content="https://personal-website-f2hq.onrender.com/mummy.jpg">
+  <meta property="og:url" content="https://personal-website-f2hq.onrender.com">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Elizabeth Komuntale Portfolio">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Elizabeth Komuntale - Full-Stack Software Developer">
+  <meta name="twitter:description" content="Experienced Full-Stack Developer specializing in React, React Native, Django, and modern JavaScript frameworks.">
+  <meta name="twitter:image" content="https://personal-website-f2hq.onrender.com/mummy.jpg">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="canonical" href="https://personal-website-f2hq.onrender.com">
+  
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234f46e5'/><text x='50' y='50' font-family='Arial, sans-serif' font-size='45' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='central'>EK</text></svg>">
   
@@ -1912,6 +1936,90 @@
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
+      });
+    });
+
+    // Active Navigation Highlighting
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav ul li a');
+
+    function highlightActiveNav() {
+      const scrollPosition = window.scrollY + 100;
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${sectionId}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }
+
+    window.addEventListener('scroll', highlightActiveNav);
+    highlightActiveNav(); // Call on page load
+
+    // Contact Form Validation
+    const contactForm = document.querySelector('.contact-form-new');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+
+    contactForm.addEventListener('submit', function(e) {
+      let isValid = true;
+      let errorMessage = '';
+
+      // Clear previous error styles
+      [nameInput, emailInput, messageInput].forEach(input => {
+        input.style.borderColor = '';
+      });
+
+      // Validate name
+      if (nameInput.value.trim() === '') {
+        isValid = false;
+        errorMessage += 'Please enter your name.\n';
+        nameInput.style.borderColor = '#ef4444';
+      }
+
+      // Validate email
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailInput.value.trim() === '') {
+        isValid = false;
+        errorMessage += 'Please enter your email.\n';
+        emailInput.style.borderColor = '#ef4444';
+      } else if (!emailPattern.test(emailInput.value)) {
+        isValid = false;
+        errorMessage += 'Please enter a valid email address.\n';
+        emailInput.style.borderColor = '#ef4444';
+      }
+
+      // Validate message
+      if (messageInput.value.trim() === '') {
+        isValid = false;
+        errorMessage += 'Please enter a message.\n';
+        messageInput.style.borderColor = '#ef4444';
+      } else if (messageInput.value.trim().length < 10) {
+        isValid = false;
+        errorMessage += 'Message must be at least 10 characters long.\n';
+        messageInput.style.borderColor = '#ef4444';
+      }
+
+      if (!isValid) {
+        e.preventDefault();
+        alert(errorMessage);
+      }
+    });
+
+    // Reset border color on input
+    [nameInput, emailInput, messageInput].forEach(input => {
+      input.addEventListener('input', function() {
+        this.style.borderColor = '';
       });
     });
   </script>
